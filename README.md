@@ -28,5 +28,3 @@
 👤 **Frances Obaze 💻**
 - Follow on [GitHub](https://github.com/FranObaze)
 - Connect on [Linkedin](https://www.linkedin.com/in/frances-obaze-847001298/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>

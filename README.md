@@ -2,7 +2,7 @@
 
 <!-- AUTHORS -->
 
-## 👥 Authors <a name="authors"></a>
+## 👥 Authors
 
 👤 **Nicholas Amissah 💻**
 - GitHub: [@atok624](https://github.com/atok624)

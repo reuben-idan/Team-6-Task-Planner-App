@@ -17,7 +17,7 @@
   <body>
 
     <!-- For Navigation Bar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Task Planner (T6)</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -59,23 +59,28 @@
 
         <!-- Card Header -->
         <div class="card-header">
-          Task Planner
+          Enter details below
         </div>
 
         <!-- Card Body -->
         <div class="card-body">
+
+          <!-- Name Detail -->
           <div class="mb-3">
             <label for="name" class="form-label">Name:</label>
             <input type="email" class="form-control" id="name"
               placeholder="John Doe">
           </div>
 
+          <!-- Description Detail -->
           <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email"
-              placeholder="name@example.com">
+            <label class="form-label">Description:</label>
+            <textarea class="form-control" id="description" rows="3"
+              placeholder="Enter description of task...">
+            </textarea>
           </div>
 
+          <!-- If User Is An Internal Stalkholder, Use DropDwon -->
           <div class="dropdown mb-3">
             <button class="btn btn-secondary dropdown-toggle" type="button"
               data-bs-toggle="dropdown"
@@ -83,19 +88,64 @@
               Assigned To
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Assignee 1</a></li>
-              <li><a class="dropdown-item" href="#">Assignee 2</a></li>
-              <li><a class="dropdown-item" href="#">Assignee 3</a></li>
+              <li><a class="dropdown-item" href="#">Jessica</a></li>
+              <li><a class="dropdown-item" href="#">Reuben</a></li>
+              <li><a class="dropdown-item" href="#">Frances</a></li>
+              <li><a class="dropdown-item" href="#">Godwin</a></li>
+              <li><a class="dropdown-item" href="#">Nicholas</a></li>
+              <li><a class="dropdown-item" href="#">Gideon</a></li>
             </ul>
           </div>
+
+          <!-- If User Is An External Stalkholder, Use Text Input -->
+          <div class="mb-3 d-none">
+            <label for="name" class="form-label">Assigned to:</label>
+            <input type="text" class="form-control" id="name"
+              placeholder="Assignee...">
+          </div>
+
+          <!-- For DatePicker -->
+          <div class="mb-3">
+            <label for="datePicker">Pick a Date:</label>
+            <input type="date" class="form-control" id="datePicker"
+              data-provide="datepicker">
+          </div>
+
+          <!-- For Status -->
+          <div
+            class="flex-column d-flex justify-content-center align-items-center">
+            <div class="text-center m-2">Status:</div>
+            <div class="btn-group mb-3" role="group"
+              aria-label="Basic radio toggle button group">
+
+              <input type="radio" class="btn-check" name="btnradio"
+                id="btnradio1"
+                autocomplete="off" checked>
+              <label class="btn btn-outline-primary"
+                for="btnradio1">To Do</label>
+
+              <input type="radio" class="btn-check" name="btnradio"
+                id="btnradio2"
+                autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio2">In
+                Progress</label>
+
+              <input type="radio" class="btn-check" name="btnradio"
+                id="btnradio3"
+                autocomplete="off">
+              <label class="btn btn-outline-primary"
+                for="btnradio3">Done</label>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Container for the Status Category -->
+    <!-- Container for the Status Categories -->
     <div class="container-fluid d-flex flex-wrap gap-4 justify-content-center">
-
-      <div class="row">
+      <div class="row mt-4">
 
         <div class="col-4">
           <div class="card" style="width: 18rem;">
@@ -120,8 +170,7 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><b>Name:</b> Nicholas Amissah</li>
-              <li class="list-group-item"><b>Description:</b> Work on the
-                Javascript</li>
+              <li class="list-group-item"><b>Description:</b> Work on Javascript</li>
               <li class="list-group-item"><b>Assigned To:</b> Nicholas</li>
               <li class="list-group-item"><b>Due Date:</b> 31/05/2024</li>
               <li class="list-group-item"><b>Status:</b> In Progress</li>
@@ -146,11 +195,10 @@
         </div>
 
       </div>
-
     </div>
 
     <!-- For Footer -->
-    <footer class="col-12">
+    <footer class="col-12 text-center m-5">
       <p>&copy; Copyright 2024 Task Planner.</p>
     </footer>
 

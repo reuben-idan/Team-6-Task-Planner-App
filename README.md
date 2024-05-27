@@ -1,4 +1,4 @@
-# Team-6---Task-Planner-App
+# Task Planner App (T6)
 
 <!-- AUTHORS -->
 

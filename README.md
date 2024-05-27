@@ -1,8 +1,8 @@
-# Team-6---Task-Planner-App
+# Task Planner App (T6)
 
 <!-- AUTHORS -->
 
-## 👥 Authors <a name="authors"></a>
+## 👥 Authors
 
 👤 **Nicholas Amissah 💻**
 - GitHub: [@atok624](https://github.com/atok624)
@@ -28,5 +28,3 @@
 👤 **Frances Obaze 💻**
 - Follow on [GitHub](https://github.com/FranObaze)
 - Connect on [Linkedin](https://www.linkedin.com/in/frances-obaze-847001298/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>

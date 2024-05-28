@@ -81,7 +81,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Name:</label>
                             <input type="text" class="form-control" id="name"
-                                placeholder="Enter name of task...">
+                                placeholder="Enter name of task..." required>
                         </div>
 
                         <!-- Description Detail -->
@@ -89,14 +89,14 @@
                             <label for="description">Description:</label>
                             <input type="text" class="form-control"
                                 id="description"
-                                placeholder="Enter description of task...">
+                                placeholder="Enter description of task..." required>
                         </div>
 
                         <!-- Selecting An Assignee -->
                         <div class="form-group mb-3">
                             <label for="assignedTo" class="form-label">Assigned
                                 To:</label>
-                            <select class="form-control" id="assignedTo">
+                            <select class="form-control" id="assignedTo" required>
                                 <option value>Select Assignee...</option>
                                 <option value="Jessica">Jessica</option>
                                 <option value="Reuben">Reuben</option>
@@ -112,7 +112,7 @@
                             <label for="dueDate" class="form-label">Due
                                 Date:</label>
                             <input type="date" class="form-control"
-                                id="dueDate">
+                                id="dueDate" required>
                         </div>
 
                         <!-- For Status -->
@@ -120,7 +120,7 @@
                             class="flex-column d-flex justify-content-center align-items-center mx-5">
                             <label for="status"
                                 class="form-label">Status:</label>
-                            <select class="form-control" id="status">
+                            <select class="form-control" id="status" required>
                                 <option>To Do</option>
                                 <option>In Progress</option>
                                 <option>Review</option>
@@ -243,7 +243,6 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-        <script src="index.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -253,7 +252,7 @@
             integrity="sha384-OgwbZS7/BXzYhFOT1bR0+yVuqOoUH89WIkYP1m+NHgjWvZFLc2bzRFQZDOFKBHpGs"
             crossorigin="anonymous"></script>
 
-        <script src="index2.js"></script>
+        <script src="index.js"></script>
 
     </body>
 

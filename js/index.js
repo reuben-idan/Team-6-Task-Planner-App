@@ -48,3 +48,6 @@ const taskForm = document.getElementById('taskForm');
       deleteBtn.addEventListener('click', () => {
         card.remove();
       });
+
+      taskForm.reset();
+    });

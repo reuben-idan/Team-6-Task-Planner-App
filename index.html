@@ -1,267 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Task Planner (T6)</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Planner</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="mb-4">Task Planner</h1>
 
-        <!-- For CSS Links -->
-        <link href="./css/style.css" rel="stylesheet" type="text/css" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous">
-    </head>
+    <form id="taskForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Task Description</label>
+        <textarea class="form-control" id="description" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="assignedTo">Assigned To</label>
+        <input type="text" class="form-control" id="assignedTo" required>
+      </div>
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input type="date" class="form-control" id="dueDate" required>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" required>
+          <option value="">Select a status</option>
+          <option value="To Do">To Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
 
-    <body>
+    <div class="row" id="taskCards">
+      <div class="col-md-4">
+        <h2>To Do</h2>
+        <div id="toDoTasks"></div>
+      </div>
+      <div class="col-md-4">
+        <h2>In Progress</h2>
+        <div id="inProgressTasks"></div>
+      </div>
+      <div class="col-md-4">
+        <h2>Done</h2>
+        <div id="doneTasks"></div>
+      </div>
+    </div>
+  </div>
 
-        <!-- For the Navigation Bar -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Task Planner (T6)</a>
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#"
-                                role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown link
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item"
-                                        href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another
-                                        action</a></li>
-                                <li><a class="dropdown-item" href="#">Something
-                                        else
-                                        here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!-- For the Form -->
-        <form id="taskForm">
-
-            <!-- For the Card Container -->
-            <div class="container-fluid col-lg-6 col-md-7 col-sm-8">
-
-                <!-- For the Card Layout -->
-                <div class="card custom-card mb-3">
-
-                    <!-- Card Header -->
-                    <div class="card-header">
-                        Enter details below
-                    </div>
-
-                    <!-- Card Body -->
-                    <div class="card-body">
-
-                        <!-- Name Detail -->
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name:</label>
-                            <input type="text" class="form-control" id="name"
-                                placeholder="Enter name of task..." required>
-                        </div>
-
-                        <!-- Description Detail -->
-                        <div class="form-group mb-3">
-                            <label for="description">Description:</label>
-                            <input type="text" class="form-control"
-                                id="description"
-                                placeholder="Enter description of task..."
-                                required>
-                        </div>
-
-                        <!-- Selecting An Assignee -->
-                        <div class="form-group mb-3">
-                            <label for="assignedTo" class="form-label">Assigned
-                                To:</label>
-                            <select class="form-control" id="assignedTo"
-                                required>
-                                <option value>Select Assignee...</option>
-                                <option value="Jessica">Jessica</option>
-                                <option value="Reuben">Reuben</option>
-                                <option value="Frances">Frances</option>
-                                <option value="Godwin">Godwin</option>
-                                <option value="Nicholas">Nicholas</option>
-                                <option value="Gideon">Gideon</option>
-                            </select>
-                        </div>
-
-                        <!-- For DatePicker -->
-                        <div class="form-group mb-3">
-                            <label for="dueDate" class="form-label">Due
-                                Date:</label>
-                            <input type="date" class="form-control"
-                                id="dueDate" placeholder="dd/mm/yyyy" required>
-                        </div>
-
-                        <!-- For Status -->
-                        <div
-                            class="flex-column d-flex justify-content-center align-items-center mx-5">
-                            <label for="status"
-                                class="form-label">Status:</label>
-                            <select class="form-control" id="status" required>
-                                <option>To Do</option>
-                                <option>In Progress</option>
-                                <option>Review</option>
-                                <option>Done</option>
-                            </select>
-                        </div>
-
-                        <!-- For the alerts -->
-                        <div>
-                            <!-- For error alert -->
-                            <div class="alert alert-danger mt-4 mx-5"
-                                role="alert" id="error"
-                                style="display: none;"></div>
-
-                            <!-- For success alert -->
-                            <div class="alert alert-success mt-4 mx-5"
-                                role="alert"
-                                id="success"
-                                style="display: none;"></div>
-                        </div>
-
-                        <!-- For Submit Button  -->
-                        <button type="submit"
-                            class="btn btn-primary mt-4 ">Submit</button>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <hr>
-        <br>
-
-        <!-- Settings for the Columns -->
-        <div class="container">
-            <div class="d-flex justify-content-center mb-3">
-
-                <!-- Choosing number of columns -->
-                <div class="col-lg-3 mb-3">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary"
-                                id="remove-col">-</button>
-                        </div>
-                        <input type="number" id="col-num" class="form-control"
-                            min="1" value="4" placeholder="Number of Columns">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary"
-                                id="add-col">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reordering the coulumns -->
-                <div class="mx-4 reorder-controls">
-                    <label for="col-order">Reorder Column: </label>
-                    <input type="number" id="col-order" min="1"
-                        placeholder="Enter column index">
-                    <button class="btn btn-outline-secondary"
-                        id="reorder-col">Reorder</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal to Modify a selected column -->
-        <div class="modal fade" id="editColumnModal" tabindex="-1"
-            aria-labelledby="editColumnModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editColumnModalLabel">Edit
-                            Column</h5>
-                        <button type="button" class="btn-close"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="col-title">Column Title:</label>
-                            <input type="text" class="form-control"
-                                id="col-title" placeholder="Enter Column Title">
-                        </div>
-                        <div class="form-group">
-                            <label for="col-color">Column Color:</label>
-                            <input class="input-group my-2" type="color"
-                                id="col-color" value="#fff">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary"
-                            id="save-col">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <h4 class="text-center">Task List Grouping</h4><br>
-
-        <!-- For the Task List -->
-        <div class="container">
-
-            <!-- The Task List grouping -->
-            <div class="row row-cols-4" id="task-list">
-
-                <!-- Each List Group will be Displayed Here -->
-
-            </div>
-        </div>
-
-        <br><hr>
-
-        <!-- For the Footer -->
-        <footer class="text-center p-3">
-            <p>&copy; 2024 Task Planner by T6.</p>
-        </footer>
-
-        <!-- For Scripts -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-mQgIOvJFpXsl9UCvxoHQzVE//BA7TfnGSCiXCrwhpzmYLlQR5fRH3UDyjbg5YWxA"
-            crossorigin="anonymous"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
-            integrity="sha512-0tztEhckQIAeQJzLFvkOeAtuXzE0tDwckfQ9zuleuIDPS5ymccauh0vhCsb8LwjxGr7sEiYlXLhzSxWhRkOl8Q=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-OgwbZS7/BXzYhFOT1bR0+yVuqOoUH89WIkYP1m+NHgjWvZFLc2bzRFQZDOFKBHpGs"
-            crossorigin="anonymous"></script>
-        <script src="index.js"></script>
-
-    </body>
-
+  <script src="index.js">
+    
+  </script>
+</body>
 </html>

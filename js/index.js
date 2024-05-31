@@ -12,6 +12,12 @@ const taskForm = document.getElementById('taskForm');
       const dueDate = document.getElementById('dueDate').value;
       const status = document.getElementById('status').value;
 
+      // Check if any required input field is missing
+      if (!name || !description || !assignedTo || !dueDate || !status) {
+        alert('Please fill in all the required input fields.');
+        return;
+      }
+
       const card = document.createElement('div');
       card.className = 'card mb-3';
 
@@ -37,7 +43,7 @@ const taskForm = document.getElementById('taskForm');
           <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
         </div>
         <div class="card-body">
-          <p class="card-text">Description: ${description}</p>
+          <p class="card-text">${description}</p>
           <p>Assigned to: ${assignedTo}</p>
           <p>Due Date: ${dueDate}</p>
           <p>Status: ${status}</p>
@@ -50,4 +56,10 @@ const taskForm = document.getElementById('taskForm');
       });
 
       taskForm.reset();
-    });
+    });
+
+    // Function to prevent user from selecting a past date
+window.onload = function () {
+  var today = new Date().toISOString().split("T")[0];
+  document.getElementById("dueDate").setAttribute("min", today);
+};

@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Planner</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container d-flex justify-content-space-around py-2">
+      <a class="navbar-brand" href="#">Task Planner</a>
+      <div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Tasks</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </nav>
   <div class="container my-5">
     <h1 class="mb-4">Task Planner</h1>
 
@@ -55,12 +86,30 @@
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white py-3 mt-5">
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-6 " >
+          <p>&copy; 2024 Task Planner. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-right">
+          <a href="#" class="text-white mr-3">Privacy Policy</a>
+          <a href="#" class="text-white mr-3">Terms of Service</a>
+          <a href="#" class="text-white">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script src="js/index.js">
-    
+
   </script>
-   <script src="js/taskManager.js">
-    
-   </script>
+  <script src="js/taskManager.js">
+
+  </script>
+
 
 </body>
+
 </html>

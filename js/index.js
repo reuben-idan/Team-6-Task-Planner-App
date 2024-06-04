@@ -1,65 +1,89 @@
-const taskForm = document.getElementById('taskForm');
-    const toDoTasks = document.getElementById('toDoTasks');
-    const inProgressTasks = document.getElementById('inProgressTasks');
-    const doneTasks = document.getElementById('doneTasks');
+// Create a new instance of the TaskManager class
+const taskManager = new TaskManager();
 
-    taskForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const description = document.getElementById('description').value;
-      const assignedTo = document.getElementById('assignedTo').value;
-      const dueDate = document.getElementById('dueDate').value;
-      const status = document.getElementById('status').value;
-
-      // Check if any required input field is missing
-      if (!name || !description || !assignedTo || !dueDate || !status) {
-        alert('Please fill in all the required input fields.');
-        return;
-      }
-
-      const card = document.createElement('div');
-      card.className = 'card mb-3';
-
-      let cardHeaderColor;
-      switch (status) {
-        case 'To Do':
-          cardHeaderColor = 'bg-secondary';
-          toDoTasks.appendChild(card);
-          break;
-        case 'In Progress':
-          cardHeaderColor = 'bg-warning';
-          inProgressTasks.appendChild(card);
-          break;
-        case 'Done':
-          cardHeaderColor = 'bg-success';
-          doneTasks.appendChild(card);
-          break;
-      }
-
-      card.innerHTML = `
-        <div class="card-header ${cardHeaderColor} text-white">
-          <h5 class="card-title mb-0">${name}</h5>
-          <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
-        </div>
-        <div class="card-body">
-          <p class="card-text">${description}</p>
-          <p>Assigned to: ${assignedTo}</p>
-          <p>Due Date: ${dueDate}</p>
-          <p>Status: ${status}</p>
-        </div>
-      `;
-
-      const deleteBtn = card.querySelector('.delete-btn');
-      deleteBtn.addEventListener('click', () => {
-        card.remove();
-      });
-
-      taskForm.reset();
-    });
-
-    // Function to prevent user from selecting a past date
-window.onload = function () {
-  var today = new Date().toISOString().split("T")[0];
-  document.getElementById("dueDate").setAttribute("min", today);
+// Function to save tasks to local storage
+const saveTasksToLocalStorage = () => {
+  localStorage.setItem('tasks', JSON.stringify(taskManager.getAllTasks()));
 };
+
+// Function to retrieve tasks from local storage
+const retrieveTasksFromLocalStorage = () => {
+  const tasks = JSON.parse(localStorage.getItem('tasks'));
+  if (tasks) {
+    tasks.forEach((task) => {
+      taskManager.addTask(
+        task.name,
+        task.description,
+        task.assignedTo,
+        task.dueDate,
+        task.status
+      );
+    });
+  }
+};
+
+// Function to handle form submission
+const handleFormSubmit = (event) => {
+  event.preventDefault();
+
+  // Save tasks to local storage after form submission
+  saveTasksToLocalStorage();
+
+  // Get form input values
+  const name = document.getElementById('nameInput').value;
+  const description = document.getElementById('descriptionInput').value;
+  const assignedTo = document.getElementById('assignedToInput').value;
+  const dueDate = document.getElementById('dueDateInput').value;
+  const status = document.getElementById('statusInput').value;
+
+  // Add task to the task manager
+  taskManager.addTask(name, description, assignedTo, dueDate, status);
+
+  // Clear form inputs
+  document.getElementById('nameInput').value = '';
+  document.getElementById('descriptionInput').value = '';
+  document.getElementById('assignedToInput').value = '';
+  document.getElementById('dueDateInput').value = '';
+  document.getElementById('statusInput').value = 'todo';
+
+  // Render the updated task list
+  renderTaskList();
+};
+
+// Function to handle task deletion
+const handleTaskDelete = (taskId) => {
+  taskManager.deleteTask(taskId);
+  renderTaskList();
+};
+
+// Function to render the task list
+const renderTaskList = () => {
+  const taskList = document.getElementById('taskList');
+  taskList.innerHTML = '';
+
+  taskManager.getAllTasks().forEach((task) => {
+    const taskCard = `
+      <li class="list-group-item">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${task.name}</h5>
+            <p class="card-text">${task.description}</p>
+            <p class="card-text">Assigned To: ${task.assignedTo}</p>
+            <p class="card-text">Due Date: ${task.dueDate}</p>
+            <p class="card-text">Status: ${task.status}</p>
+            <button class="btn btn-danger" onclick="handleTaskDelete('${task.id}')">Delete</button>
+          </div>
+        </div>
+      </li>
+    `;
+
+    taskList.innerHTML += taskCard;
+  });
+};
+
+// Add event listener to the form submit button
+document.getElementById('taskForm').addEventListener('submit', handleFormSubmit);
+
+// Render the initial task list
+retrieveTasksFromLocalStorage(); // Retrieve tasks from local storage
+renderTaskList();

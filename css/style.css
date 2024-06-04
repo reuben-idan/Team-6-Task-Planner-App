@@ -1,34 +1,17 @@
-html {
-    width: 100%;
-    height: 100%;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.bg-img {
-    width: 100vw;
-    height: 9vh;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+.card {
+  margin-bottom: 10px;
 }
 
-.content {
-    margin-top: 10px;
+#taskList .card {
+  cursor: pointer;
 }
 
-.task-card {
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .color-picker {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .color-picker input[type="color"] {
-    margin: 5px;
-    border-radius: 10px;
-  }
-  
+#taskList .card:hover {
+  background-color: #f8f9fa;
+}

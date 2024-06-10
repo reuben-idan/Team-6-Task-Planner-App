@@ -1,89 +1,175 @@
-// Create a new instance of the TaskManager class
-const taskManager = new TaskManager();
+const taskForm = document.getElementById('taskForm');
+const toDoTasks = document.getElementById('toDoTasks');
+const inProgressTasks = document.getElementById('inProgressTasks');
+const doneTasks = document.getElementById('doneTasks');
+const saveBtn = document.getElementById('saveBtn');
+const updateBtn = document.getElementById('updateBtn');
 
-// Function to save tasks to local storage
-const saveTasksToLocalStorage = () => {
-  localStorage.setItem('tasks', JSON.stringify(taskManager.getAllTasks()));
-};
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let selectedTask = null;
 
-// Function to retrieve tasks from local storage
-const retrieveTasksFromLocalStorage = () => {
-  const tasks = JSON.parse(localStorage.getItem('tasks'));
-  if (tasks) {
-    tasks.forEach((task) => {
-      taskManager.addTask(
-        task.name,
-        task.description,
-        task.assignedTo,
-        task.dueDate,
-        task.status
-      );
-    });
-  }
-};
+// Load tasks from local storage
+tasks.forEach((task) => {
+  createTaskCard(task.name, task.description, task.assignedTo, task.dueDate, task.status);
+});
 
-// Function to handle form submission
-const handleFormSubmit = (event) => {
+taskForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  // Save tasks to local storage after form submission
-  saveTasksToLocalStorage();
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const assignedTo = document.getElementById('assignedTo').value;
+  const dueDate = document.getElementById('dueDate').value;
+  const status = document.getElementById('status').value;
 
-  // Get form input values
-  const name = document.getElementById('nameInput').value;
-  const description = document.getElementById('descriptionInput').value;
-  const assignedTo = document.getElementById('assignedToInput').value;
-  const dueDate = document.getElementById('dueDateInput').value;
-  const status = document.getElementById('statusInput').value;
+  // Check if any required input field is missing
+  if (!name || !description || !assignedTo || !dueDate || !status) {
+    alert('Please fill in all the required input fields.');
+    return;
+  }
 
-  // Add task to the task manager
-  taskManager.addTask(name, description, assignedTo, dueDate, status);
+  if (selectedTask === null) {
+    // New task
+    const newTask = { name, description, assignedTo, dueDate, status };
+    createTaskCard(name, description, assignedTo, dueDate, status);
+    tasks.push(newTask);
+    saveToLocalStorage();
+    saveBtn.style.display = 'block';
+    updateBtn.style.display = 'none';
+  } else {
+    // Update existing task
+    const index = tasks.findIndex((task) => task === selectedTask);
+    tasks[index] = { name, description, assignedTo, dueDate, status };
+    updateTask(selectedTask, name, description, assignedTo, dueDate, status);
+    saveToLocalStorage();
+    selectedTask = null;
+    saveBtn.style.display = 'block';
+    updateBtn.style.display = 'none';
+  }
 
-  // Clear form inputs
-  document.getElementById('nameInput').value = '';
-  document.getElementById('descriptionInput').value = '';
-  document.getElementById('assignedToInput').value = '';
-  document.getElementById('dueDateInput').value = '';
-  document.getElementById('statusInput').value = 'todo';
+  taskForm.reset();
+});
 
-  // Render the updated task list
-  renderTaskList();
-};
+function createTaskCard(name, description, assignedTo, dueDate, status) {
+  const card = document.createElement('div');
+  card.className = 'card mb-3';
 
-// Function to handle task deletion
-const handleTaskDelete = (taskId) => {
-  taskManager.deleteTask(taskId);
-  renderTaskList();
-};
+  const cardHeaderColor = getCardHeaderColor(status);
+  card.innerHTML = `
+    <div class="card-header ${cardHeaderColor} text-white">
+      <h5 class="card-title mb-0">${name}</h5>
+      <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
+      <button class="btn btn-primary btn-sm float-right edit-btn mr-2">Edit</button>
+    </div>
+    <div class="card-body">
+      <p class="card-text">${description}</p>
+      <p>Assigned to: ${assignedTo}</p>
+      <p>Due Date: ${dueDate}</p>
+      <p>Status: ${status}</p>
+    </div>
+  `;
 
-// Function to render the task list
-const renderTaskList = () => {
-  const taskList = document.getElementById('taskList');
-  taskList.innerHTML = '';
-
-  taskManager.getAllTasks().forEach((task) => {
-    const taskCard = `
-      <li class="list-group-item">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">${task.name}</h5>
-            <p class="card-text">${task.description}</p>
-            <p class="card-text">Assigned To: ${task.assignedTo}</p>
-            <p class="card-text">Due Date: ${task.dueDate}</p>
-            <p class="card-text">Status: ${task.status}</p>
-            <button class="btn btn-danger" onclick="handleTaskDelete('${task.id}')">Delete</button>
-          </div>
-        </div>
-      </li>
-    `;
-
-    taskList.innerHTML += taskCard;
+  const deleteBtn = card.querySelector('.delete-btn');
+  deleteBtn.addEventListener('click', () => {
+    deleteTask(card);
   });
+
+  const editBtn = card.querySelector('.edit-btn');
+  editBtn.addEventListener('click', () => {
+    populateTaskForm(name, description, assignedTo, dueDate, status);
+    selectedTask = card;
+    saveBtn.style.display = 'none';
+    updateBtn.style.display = 'block';
+  });
+
+  appendToColumn(card, status);
+}
+
+function populateTaskForm(name, description, assignedTo, dueDate, status) {
+  document.getElementById('name').value = name;
+  document.getElementById('description').value = description;
+  document.getElementById('assignedTo').value = assignedTo;
+  document.getElementById('dueDate').value = dueDate;
+  document.getElementById('status').value = status;
+}
+
+function updateTask(taskCard, name, description, assignedTo, dueDate, status) {
+  const cardHeaderColor = getCardHeaderColor(status);
+  taskCard.innerHTML = `
+    <div class="card-header ${cardHeaderColor} text-white">
+      <h5 class="card-title mb-0">${name}</h5>
+      <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
+      <button class="btn btn-primary btn-sm float-right edit-btn mr-2">Edit</button>
+    </div>
+    <div class="card-body">
+      <p class="card-text">${description}</p>
+      <p>Assigned to: ${assignedTo}</p>
+      <p>Due Date: ${dueDate}</p>
+      <p>Status: ${status}</p>
+    </div>
+  `;
+
+  const deleteBtn = taskCard.querySelector('.delete-btn');
+  deleteBtn.addEventListener('click', () => {
+    deleteTask(taskCard);
+  });
+
+  const editBtn = taskCard.querySelector('.edit-btn');
+  editBtn.addEventListener('click', () => {
+    populateTaskForm(name, description, assignedTo, dueDate, status);
+    selectedTask = taskCard;
+    saveBtn.style.display = 'none';
+    updateBtn.style.display = 'block';
+  });
+
+  updateTaskInLocalStorage(taskCard, name, description, assignedTo, dueDate, status);
+  appendToColumn(taskCard, status);
+}
+
+function deleteTask(taskCard) {
+  const index = tasks.findIndex((task) => task.name === taskCard.querySelector('h5').textContent);
+  tasks.splice(index, 1);
+  saveToLocalStorage();
+  taskCard.remove();
+}
+
+function appendToColumn(taskCard, status) {
+  switch (status) {
+    case 'To Do':
+      toDoTasks.appendChild(taskCard);
+      break;
+    case 'In Progress':
+      inProgressTasks.appendChild(taskCard);
+      break;
+    case 'Done':
+      doneTasks.appendChild(taskCard);
+      break;
+  }
+}
+
+function getCardHeaderColor(status) {
+  switch (status) {
+    case 'To Do':
+      return 'bg-secondary';
+    case 'In Progress':
+      return 'bg-warning';
+    case 'Done':
+      return 'bg-success';
+  }
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function updateTaskInLocalStorage(taskCard, name, description, assignedTo, dueDate, status) {
+  const index = tasks.findIndex((task) => task.name === taskCard.querySelector('h5').textContent);
+  tasks[index] = { name, description, assignedTo, dueDate, status };
+  saveToLocalStorage();
+}
+
+// Function to prevent user from selecting a past date
+window.onload = function () {
+  var today = new Date().toISOString().split("T")[0];
+  document.getElementById("dueDate").setAttribute("min", today);
 };
-
-// Add event listener to the form submit button
-document.getElementById('taskForm').addEventListener('submit', handleFormSubmit);
-
-// Render the initial task list
-retrieveTasksFromLocalStorage(); // Retrieve tasks from local storage
-renderTaskList();

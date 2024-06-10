@@ -43,12 +43,12 @@
 
     <form id="taskForm">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Task Name</label>
         <input type="text" class="form-control" id="name" required>
       </div>
       <div class="form-group">
         <label for="description">Task Description</label>
-        <textarea class="form-control" id="description" rows="3" required></textarea>
+        <textarea class="form-control" id="description" required></textarea>
       </div>
       <div class="form-group">
         <label for="assignedTo">Assigned To</label>
@@ -61,26 +61,27 @@
       <div class="form-group">
         <label for="status">Status</label>
         <select class="form-control" id="status" required>
-          <option value="">Select a status</option>
+          <option value="">Select Status</option>
           <option value="To Do">To Do</option>
           <option value="In Progress">In Progress</option>
           <option value="Done">Done</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Add Task</button>
+      <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+      <button type="submit" class="btn btn-primary" id="updateBtn" style="display: none;">Update</button>
     </form>
 
-    <div class="row mb-4 mt-4" id="taskCards">
-      <div class="col-md-4 mb-4">
-        <h2 >To Do</h2>
+    <div class="row mt-5" id="taskCards">
+      <div class="col-md-4">
+        <h3 class="text-center text-uppercase">To Do</h3>
         <div id="toDoTasks"></div>
       </div>
-      <div class="col-md-4 mb-4">
-        <h2>In Progress</h2>
+      <div class="col-md-4">
+        <h3 class="text-center text-uppercase">In Progress</h3>
         <div id="inProgressTasks"></div>
       </div>
-      <div class="col-md-4 mb-4">
-        <h2>Done</h2>
+      <div class="col-md-4">
+        <h3 class="text-center text-uppercase">Done</h3>
         <div id="doneTasks"></div>
       </div>
     </div>

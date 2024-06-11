@@ -292,4 +292,3 @@ window.onload = function () {
 
 // Get the current year to display in the Footer
 document.querySelector("#year").textContent = new Date().getFullYear();
-

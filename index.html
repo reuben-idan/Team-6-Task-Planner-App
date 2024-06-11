@@ -1,116 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Planner</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Planner</title>
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
 
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container d-flex justify-content-space-around py-2">
-      <a class="navbar-brand" href="#">Task Planner</a>
-      <div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Tasks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+      <div class="container d-flex justify-content-space-around py-2">
+        <a class="navbar-brand" href="https://ghana.generation.org/" target="_blank">GG - Generation Ghana</a>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search for a task" aria-label="Search" id="searchInput">
+          <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
+        </form>
+        <div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex">
+                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="#taskCards">Tasks</a>
+              </li>
+            </ul>
+            <div class="dropdown me-1">
+              <button type="button" class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                Developers
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Reuben</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Jessica</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Nicholas</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Frances</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Godwin</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Gideon</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="mt-5">
+
+      <!-- The Form -->
+      <div class="contain justify-content-center" >
+        <div class="card corner m-5" >
+  
+          <!-- Title of card -->
+          <div class="card-header">
+            <div class="card-title">
+              <h3 class="text-center">Task Planner</h3>
+            </div>
+          </div>
+  
+          <!-- Main Form -->
+          <div class="card-body">
+            <form id="taskForm">
+              <div class="form-group">
+                <label for="name">Task Name</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+              <div class="form-group">
+                <label for="description">Task Description</label>
+                <textarea class="form-control" id="description" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="assignedTo">Assigned To</label>
+                <input type="text" class="form-control" id="assignedTo" required>
+              </div>
+              <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" id="dueDate" required>
+              </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" required>
+                  <option value>Select Status</option>
+                  <option value="To Do">To Do</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Done">Done</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+              <button type="submit" class="btn btn-primary" id="updateBtn"
+                style="display: none;">Update</button>
+            </form>
+          </div>
+  
+        </div>        
+      </div>
+
+      <!-- Display of Tasks -->
+      <div class="row col-12 mt-3" id="taskCards">
+        <div class="col-md-4">
+          <h3 class="text-center text-uppercase m-3">To Do</h3>
+          <div id="toDoTasks"></div>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center text-uppercase m-3">In Progress</h3>
+          <div id="inProgressTasks"></div>
+        </div>
+        <div class="col-md-4">
+          <h3 class="text-center text-uppercase m-3 text-">Done</h3>
+          <div id="doneTasks"></div>
         </div>
       </div>
-
     </div>
-  </nav>
-  <div class="container my-5">
-    <h1 class="mb-4">Task Planner</h1>
 
-    <form id="taskForm">
-      <div class="form-group">
-        <label for="name">Task Name</label>
-        <input type="text" class="form-control" id="name" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Task Description</label>
-        <textarea class="form-control" id="description" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="assignedTo">Assigned To</label>
-        <input type="text" class="form-control" id="assignedTo" required>
-      </div>
-      <div class="form-group">
-        <label for="dueDate">Due Date</label>
-        <input type="date" class="form-control" id="dueDate" required>
-      </div>
-      <div class="form-group">
-        <label for="status">Status</label>
-        <select class="form-control" id="status" required>
-          <option value="">Select Status</option>
-          <option value="To Do">To Do</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Done">Done</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-      <button type="submit" class="btn btn-primary" id="updateBtn" style="display: none;">Update</button>
-    </form>
-
-    <div class="row mt-5" id="taskCards">
-      <div class="col-md-4">
-        <h3 class="text-center text-uppercase">To Do</h3>
-        <div id="toDoTasks"></div>
-      </div>
-      <div class="col-md-4">
-        <h3 class="text-center text-uppercase">In Progress</h3>
-        <div id="inProgressTasks"></div>
-      </div>
-      <div class="col-md-4">
-        <h3 class="text-center text-uppercase">Done</h3>
-        <div id="doneTasks"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer bg-dark text-white py-3 mt-5">
-    <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-md-6 " >
-          <p>&copy; 2024 Task Planner. All rights reserved.</p>
-        </div>
-        <div class="col-md-6 text-md-right">
-          <a href="#" class="text-white mr-3">Privacy Policy</a>
-          <a href="#" class="text-white mr-3">Terms of Service</a>
-          <a href="#" class="text-white">Contact Us</a>
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-3 mt-5">
+      <div class="container">
+        <div class="row d-flex align-items-center">
+          <div class="col-md-6 ">
+            <p>&copy; 2024 Task Planner. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-right">
+            <a href="#" class="text-white mr-3">Privacy Policy</a>
+            <a href="#" class="text-white mr-3">Terms of Service</a>
+            <a href="#" class="text-white">Contact Us</a>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/index.js">
-
+    <script src="js/index.js">
   </script>
-  <script src="js/taskManager.js">
-
+    <script src="js/taskManager.js">
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-
-</body>
+  </body>
 
 </html>

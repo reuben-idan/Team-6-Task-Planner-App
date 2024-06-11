@@ -1,34 +1,69 @@
-html {
-    width: 100%;
-    height: 100%;
+.contain {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 700px;
 }
 
-.bg-img {
-    width: 100vw;
-    height: 9vh;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+.card {
+  margin-bottom: 10px;
 }
 
-.content {
-    margin-top: 10px;
+#taskList .card {
+  cursor: pointer;
 }
 
-.task-card {
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .color-picker {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .color-picker input[type="color"] {
-    margin: 5px;
-    border-radius: 10px;
+#taskList .card:hover {
+  background-color: #f8f9fa;
+}
+
+/* Styling for the Card From */
+.corner {
+  border-radius: 20px;
+  border: 2px solid grey;
+}
+
+/* Styling Search Button */
+.search-btn {
+  color: white;
+  width: wrap;
+  height: 45px;
+  background: #0074B9;
+  border: 2px solid #0074B9;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.search-btn:hover {
+  background: blue;
+  color: white;
+  border: 2px solid blue;
+}
+
+.search-input {
+  border-radius: 50px;
+  border-color: #0074B9;
+  padding: 10px;
+  background: white;
+}
+
+.navbar-logo {
+  margin-left: 20px;
+}
+
+.navbar-toggler {
+  color: white;
+  border-color: white;
+  stroke: white;
+  text-decoration: none;
+  outline: 0;
+}
+
+  .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem white;
   }
   

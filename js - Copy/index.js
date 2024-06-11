@@ -4,7 +4,6 @@ const inProgressTasks = document.getElementById("inProgressTasks");
 const doneTasks = document.getElementById("doneTasks");
 const saveBtn = document.getElementById("saveBtn");
 const updateBtn = document.getElementById("updateBtn");
-const cancelBtn = document.getElementById("cancelBtn");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 
@@ -45,7 +44,6 @@ taskForm.addEventListener("submit", (event) => {
     saveToLocalStorage();
     saveBtn.style.display = "block";
     updateBtn.style.display = "none";
-    cancelBtn.style.display = "none";
   } else {
     // Update existing task
     const index = tasks.findIndex((task) => task === selectedTask);
@@ -55,42 +53,15 @@ taskForm.addEventListener("submit", (event) => {
     selectedTask = null;
     saveBtn.style.display = "block";
     updateBtn.style.display = "none";
-    cancelBtn.style.display = "none";
   }
 
   taskForm.reset();
 });
-
-// EventListener for the Cancel Button
-cancelBtn.addEventListener("click", () => {
-  taskForm.reset();
-  saveBtn.style.display = "block";
-  updateBtn.style.display = "none";
-  cancelBtn.style.display = "none";
-})
 
 // EventListener for search button
 searchBtn.addEventListener("click", () => {
   const searchTerm = searchInput.value.toLowerCase();
   filterTasks(searchTerm);
-});
-
-// EventListener to check if the search field is empty or not
-searchInput.addEventListener("input", (event) => {
-  if (event.target.value === "") {
-    // Clear icon is clicked, show all tasks
-    toDoTasks.innerHTML = '';
-    inProgressTasks.innerHTML = '';
-    doneTasks.innerHTML = '';
-    tasks.forEach((task) => {
-      if (!document.querySelector(`[data-task-name="${task.name}"]`)) {
-        createTaskCard(task.name, task.description, task.assignedTo, task.dueDate, task.status);
-      }
-    });
-  } else {
-    // Filter tasks based on search input
-    filterTasks(event.target.value.toLowerCase());
-  }
 });
 
 // Function to filter tasks based on search term
@@ -129,45 +100,21 @@ function createTaskCard(name, description, assignedTo, dueDate, status) {
   card.innerHTML = `
     <div class="card-header ${cardHeaderColor} text-white">
       <h5 class="card-title mb-0">${name}</h5>
-      <br>
-      <div class="text-end">
-      <a href="#form-top"><button class="btn btn-primary btn-sm float-right edit-btn me-3">Edit</button></a>
-      <button class="btn btn-danger btn-sm float-right delete-btn" data-bs-toggle="modal" data-bs-target="#modalDeleteTask">Delete</button>
-      </div>
+      <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
+      <button class="btn btn-primary btn-sm float-right edit-btn mr-2">Edit</button>
     </div>
     <div class="card-body">
-      <p class="card-text fst-italic">${description}</p>
+      <p class="card-text font-italic">${description}</p>
       <hr/>
-      <p><span class="fw-bold">Assigned to:</span> ${assignedTo}</p>
-      <p><span class="fw-bold">Due Date:</span> ${dueDate}</p>
-      <p><span class="fw-bold">Status:</span> ${status}</p>
+      <p><span class="font-weight-bold">Assigned to:</span> ${assignedTo}</p>
+      <p><span class="font-weight-bold">Due Date:</span> ${dueDate}</p>
+      <p><span class="font-weight-bold">Status:</span> ${status}</p>
     </div>
   `;
 
-  // Get the delete button element on the selected task
+  // Function deleting a task
   const deleteBtn = card.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", () => {
-
-  // Get the modal view in a div element
-  const modal = document.getElementById("modalDeleteTask");
-
-  // Get the confirm delete button
-  const confirmDeleteBtn = modal.querySelector("#confirm-delete");
-
-  // Add an event listener to the confirm delete button
-  confirmDeleteBtn.addEventListener("click", () => {
-    // Delete the task
-    deleteTask(card);
-    // Remove the modal
-    modal.remove();
-  });
-
-  // Add an event listener to the cancel button
-  modal.querySelector(".close").addEventListener("click", () => {
-    // Remove the modal
-    modal.remove();
-  });
-
     deleteTask(card);
   });
 
@@ -177,8 +124,7 @@ function createTaskCard(name, description, assignedTo, dueDate, status) {
     populateTaskForm(name, description, assignedTo, dueDate, status);
     selectedTask = card;
     saveBtn.style.display = "none";
-    updateBtn.style.display = "flex";
-    cancelBtn.style.display = "flex";
+    updateBtn.style.display = "block";
   });
 
   appendToColumn(card, status);
@@ -199,18 +145,14 @@ function updateTask(taskCard, name, description, assignedTo, dueDate, status) {
   taskCard.innerHTML = `
     <div class="card-header ${cardHeaderColor} text-white">
       <h5 class="card-title mb-0">${name}</h5>
-      <br>
-      <div class="text-end">
-      <a href="#form-top"><button class="btn btn-primary btn-sm float-right edit-btn me-3">Edit</button></a>
       <button class="btn btn-danger btn-sm float-right delete-btn">Delete</button>
-      </div>
+      <button class="btn btn-primary btn-sm float-right edit-btn mr-2">Edit</button>
     </div>
     <div class="card-body">
-      <p class="card-text fst-italic">${description}</p>
-      <hr/>
-      <p><span class="fw-bold">Assigned to:</span> ${assignedTo}</p>
-      <p><span class="fw-bold">Due Date:</span> ${dueDate}</p>
-      <p><span class="fw-bold">Status:</span> ${status}</p>
+      <p class="card-text">${description}</p>
+      <p>Assigned to: ${assignedTo}</p>
+      <p>Due Date: ${dueDate}</p>
+      <p>Status: ${status}</p>
     </div>
   `;
 
@@ -236,7 +178,7 @@ function deleteTask(taskCard) {
   taskCard.remove();
 }
 
-// Function to append task to the column
+// Append task to the column
 function appendToColumn(taskCard, status) {
   switch (status) {
     case "To Do":
@@ -251,7 +193,7 @@ function appendToColumn(taskCard, status) {
   }
 }
 
-// Function to get the head color
+// Get the head color
 function getCardHeaderColor(status) {
   switch (status) {
     case "To Do":
@@ -289,7 +231,3 @@ window.onload = function () {
   var today = new Date().toISOString().split("T")[0];
   document.getElementById("dueDate").setAttribute("min", today);
 };
-
-// Get the current year to display in the Footer
-document.querySelector("#year").textContent = new Date().getFullYear();
-

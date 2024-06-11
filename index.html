@@ -12,9 +12,13 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
       <div class="container d-flex justify-content-space-around py-2">
-        <a class="navbar-brand" href="#">T6 - Task Planner</a>
+        <a class="navbar-brand" href="https://ghana.generation.org/" target="_blank">GG - Generation Ghana</a>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search for a task" aria-label="Search" id="searchInput">
+          <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
+        </form>
         <div>
           <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarNav"
@@ -23,12 +27,13 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
+            
             <ul class="navbar-nav">
-              <li class="nav-item">
+              <li class="nav-item d-flex">
+                <a class="nav-link" href="#">Home</a>
                 <a class="nav-link" href="#taskCards">Tasks</a>
               </li>
             </ul>
-
             <div class="dropdown me-1">
               <button type="button" class="btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
                 Developers
@@ -54,7 +59,7 @@
       </div>
     </nav>
 
-    <div>
+    <div class="mt-5">
 
       <!-- The Form -->
       <div class="contain justify-content-center" >

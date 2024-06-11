@@ -4,6 +4,8 @@ const inProgressTasks = document.getElementById("inProgressTasks");
 const doneTasks = document.getElementById("doneTasks");
 const saveBtn = document.getElementById("saveBtn");
 const updateBtn = document.getElementById("updateBtn");
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let selectedTask = null;
@@ -55,6 +57,39 @@ taskForm.addEventListener("submit", (event) => {
 
   taskForm.reset();
 });
+
+// EventListener for search button
+searchBtn.addEventListener("click", () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  filterTasks(searchTerm);
+});
+
+// Function to filter tasks based on search term
+function filterTasks(searchTerm) {
+  // Clear existing task cards
+  toDoTasks.innerHTML = '';
+  inProgressTasks.innerHTML = '';
+  doneTasks.innerHTML = '';
+
+  // Filter tasks based on search term
+  const filteredTasks = tasks.filter(task => {
+    const name = task.name.toLowerCase();
+    const description = task.description.toLowerCase();
+    const assignedTo = task.assignedTo.toLowerCase();
+    return name.includes(searchTerm) || description.includes(searchTerm) || assignedTo.includes(searchTerm);
+  });
+
+  // Create task cards for filtered tasks
+  filteredTasks.forEach((task) => {
+    createTaskCard(
+      task.name,
+      task.description,
+      task.assignedTo,
+      task.dueDate,
+      task.status
+    );
+  });
+}
 
 // Function to create the task
 function createTaskCard(name, description, assignedTo, dueDate, status) {

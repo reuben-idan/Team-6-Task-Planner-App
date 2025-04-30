@@ -132,7 +132,7 @@ This project is licensed under the **[MIT License](LICENSE)**. Feel free to use,
 For inquiries, feedback, or support, please reach out:
 
 - **GitHub Profile**: [reuben-idan](https://github.com/reuben-idan)
-- **Email**: [Provide an Email Address]
+- **Email**: [reuben.idan@gmail.com]
 
 ---
 
